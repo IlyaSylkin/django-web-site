@@ -1,0 +1,34 @@
+
+{% extends 'main/layout.html' %}
+
+{% block title %}{{ initiative.title }}{% endblock %}
+
+{% block content %}
+<div class="initiative-detail">
+    <h2>{{ initiative.title }}</h2>
+    <p><strong>Инициатор:</strong> {{ initiative.initiator_name }}</p>
+    <p><strong>Электронная почта:</strong> {{ initiative.email }}</p>
+    <p><strong>Описание:</strong></p>
+    <p>{{ initiative.description }}</p>
+    {% if initiative.image %}
+        <img src="{{ initiative.image.url }}" alt="{{ initiative.title }}" style="width:100%; height:auto;">
+    {% else %}
+        <p>Изображение отсутствует</p>
+    {% endif %}
+    <p><strong>Голосов:</strong> {{ initiative.votes }}</p>
+    <p>
+        <a href="{% url 'home' %}" class="btn">Назад к списку инициатив</a>
+        {% if is_moderator %}
+            <a href="{% url 'review_initiatives' %}" class="btn">К проверке инициатив</a>
+        {% endif %}
+    </p>
+    {% if user.is_authenticated %}
+        <form action="{% url 'vote_initiative' initiative.id %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn">Проголосовать</button>
+        </form>
+    {% else %}
+        <p>Чтобы проголосовать, пожалуйста, <a href="{% url 'login' %}">войдите</a>.</p>
+    {% endif %}
+<div\>
+{% endblock %}

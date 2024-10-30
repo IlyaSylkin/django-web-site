@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+
+<div class="hero">
+    <h2>Вы можете изменить что-то к лучшему!</h2>
+    <p>Студенты могут описать свои идеи, прикрепить фото и голосовать за инициативы.</p>
+    <a href="{% url 'initiatives_create' %}" class="btn">Предложить инициативу</a>
+</div>
+
+<h2>Недавние инициативы</h2>
+<!-- TODO: показывать время, автора, переход на страницу проекта, будет автор, комментарии, фильтр по тегам, кнопка показать больше -->
+{% for el in initiatives %}
+<div class="initiative">
+    <h3>{{ el.title }}</h3>
+    <p>{{ el.description|truncatewords:30 }}</p>
+    {% if el.image %}
+        <img src="{{ el.image.url }}" alt="{{ el.title }}" style="width:100%;height:auto;">
+    {% else %}
+        <p>Изображение отсутствует</p>
+    {% endif %}
+    <p>Голосов: {{ el.votes }}</p>
+    <a href="{% url 'initiative-detail' el.id %}" class="btn">Подробнее</a>
+    </div>
+{% endfor %}
+{% endblock %}

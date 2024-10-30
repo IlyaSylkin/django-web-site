@@ -1,0 +1,100 @@
+/* styles.css */
+.initiative-form {
+    max-width: 600px; /* Ограничивает максимальную ширину формы */
+    margin: 0 auto; /* Центрирует форму по горизонтали */
+    padding: 20px; /* Добавляет отступы внутри формы */
+    border: 1px solid #ccc; /* Добавляет рамку вокруг формы */
+    border-radius: 8px; /* Закругляет углы рамки */
+    background-color: #f9f9f9; /* Цвет фона формы */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Добавляет тень */
+}
+
+.initiative-form h2 {
+    text-align: center; /* Выравнивает заголовок по центру */
+    color: #333; /* Цвет заголовка */
+}
+
+.initiative-form p {
+    margin-bottom: 15px; /* Добавляет отступ между полями формы */
+}
+
+.initiative-form label {
+    display: block; /* Делает метки блочными для выравнивания */
+    margin-bottom: 5px; /* Отступ между меткой и полем */
+    font-weight: bold; /* Жирный шрифт для меток */
+    color: #555; /* Цвет текста меток */
+}
+
+.initiative-form input[type="text"],
+.initiative-form input[type="email"],
+.initiative-form input[type="file"],
+.initiative-form textarea {
+    width: 100%; /* Задает ширину полей на 100% */
+    padding: 10px; /* Внутренние отступы для полей */
+    border: 1px solid #ccc; /* Рамка вокруг полей */
+    border-radius: 4px; /* Закругленные углы полей */
+    font-size: 16px; /* Размер шрифта */
+    box-sizing: border-box; /* Включает отступы и рамки в общую ширину/высоту */
+}
+
+.initiative-form input[type="submit"] {
+    background-color: #4CAF50; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    border: none; /* Убирает рамку кнопки */
+    padding: 10px 15px; /* Внутренние отступы для кнопки */
+    border-radius: 4px; /* Закругленные углы кнопки */
+    cursor: pointer; /* Изменяет курсор на указатель при наведении */
+    font-size: 16px; /* Размер шрифта кнопки */
+}
+
+.initiative-form input[type="submit"]:hover {
+    background-color: #45a049; /* Цвет фона кнопки при наведении */
+}
+.initiative-detail {
+    max-width: 800px; /* Максимальная ширина контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    background: #fff; /* Белый фон для контента */
+    padding: 20px; /* Внутренние отступы */
+    border-radius: 5px; /* Закругленные углы */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Тень для контейнера */
+}
+
+/* Заголовок инициативы */
+.initiative-detail h1 {
+    font-size: 24px;
+    margin-bottom: 10px; /* Отступ снизу */
+}
+
+/* Описание инициативы */
+.initiative-detail p {
+    font-size: 16px;
+    margin-bottom: 15px; /* Отступ снизу */
+}
+
+/* Стили для изображения */
+.initiative-detail img {
+    max-width: 100%; /* Максимальная ширина изображения */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    display: block; /* Отображение блока */
+    margin: 0 auto; /* Центрирование изображения */
+}
+
+/* Кнопка для голосования */
+.initiative-detail .btn {
+    display: inline-block; /* Отображение как блочный элемент */
+    padding: 10px 15px; /* Внутренние отступы */
+    background-color: #007bff; /* Цвет фона */
+    color: white; /* Цвет текста */
+    text-decoration: none; /* Убираем подчеркивание */
+    border-radius: 5px; /* Закругленные углы */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+.initiative-detail .btn:hover {
+    background-color: #0056b3; /* Цвет фона при наведении */
+}
+.button-container {
+    display: flex; 
+    justify-content: left;     /* Центрируем по горизонтали */
+    margin-top: 20px;           /* Добавляем отступ сверху, если нужно */
+}

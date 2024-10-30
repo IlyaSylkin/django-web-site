@@ -1,0 +1,41 @@
+{% extends "main/layout.html" %}
+
+{% block title %}Проверка Инициатив{% endblock %}
+
+{% block content %}
+<h2>Проверка инициатив</h2>
+{% if initiatives %}
+    <table>
+        <thead>
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Дата создания</th>
+                <th>Действия</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for initiative in initiatives %}
+                <tr>
+                    <td>{{ initiative.title }}</td>
+                    <td>{{ initiative.description|truncatewords:20 }}</td>
+                    <td>{{ initiative.created_at }}</td>
+                    <td>
+                        <a href="{% url 'initiative-detail' initiative.id %}" class="btn">Подробнее</a>
+                        <form action="{% url 'approve_initiative' initiative.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Одобрить</button>
+                        </form>
+                        <form action="{% url 'reject_initiative' initiative.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Отклонить</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>Нет инициатив для проверки.</p>
+{% endif %}
+{% endblock %}

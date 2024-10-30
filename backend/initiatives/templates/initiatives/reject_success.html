@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Инициатива отклонена</h2>
+    <p>Инициатива "{{ initiative.title }}" была отклонена и не будет опубликована.</p>
+    <a href="{% url 'review_initiatives' %}" class="btn">Назад к проверке инициатив</a>
+</div>
+{% endblock %}
