@@ -27,8 +27,26 @@
             {% csrf_token %}
             <button type="submit" class="btn">Проголосовать</button>
         </form>
+        
+        <h3>Оставить комментарий:</h3>
+        <form action="{% url 'add_comment' initiative.id %}" method="POST">
+            {% csrf_token %}
+            {{ comment_form.as_p }}  <!-- Поле для комментария -->
+            <button type="submit" class="btn">Добавить комментарий</button>
+        </form>
+        
+        <h3>Комментарии:</h3>
+        {% for comment in comments %}
+            <div class="comment">
+                <strong>{{ comment.user.username }}</strong> - {{ comment.created_at }}:
+                <p>{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p>Пока нет комментариев.</p>
+        {% endfor %}
+        
     {% else %}
-        <p>Чтобы проголосовать, пожалуйста, <a href="{% url 'login' %}">войдите</a>.</p>
+        <p>Чтобы проголосовать или оставить комментарий, пожалуйста, <a href="{% url 'login' %}">войдите</a>.</p>
     {% endif %}
 <div\>
 {% endblock %}

@@ -30,3 +30,13 @@ class Vote(models.Model):
         unique_together = ('user', 'initiative')  # Ограничение на уникальность
         def __str__(self):
             return f"{self.user} голосовал за {self.initiative}"
+        
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    initiative = models.ForeignKey(Initiative, related_name='comments', on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username}: {self.content}'

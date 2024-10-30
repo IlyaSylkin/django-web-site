@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import InitiativeForm
+from .forms import InitiativeForm,CommentForm
 from django.views.generic import DetailView
 from initiatives.models import Initiative
 from django.contrib.auth.decorators import user_passes_test
@@ -30,7 +30,22 @@ class InitiativesDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['is_moderator'] = self.request.user.groups.filter(name='Moderators').exists()
+        context['comments'] = self.object.comments.all()  # Получаем все комментарии
+        context['comment_form'] = CommentForm()  # Передаем форму для комментария
         return context
+    
+@login_required
+def add_comment(request, initiative_id):
+    initiative = get_object_or_404(Initiative, id=initiative_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user  # Устанавливаем текущего пользователя как автора комментария
+            comment.initiative = initiative  # Привязываем комментарий к инициативе
+            comment.save()  # Сохраняем комментарий
+            return redirect('initiative-detail', pk=initiative.id)  # Перенаправление на страницу детали инициативы
+    return redirect('initiative-detail', pk=initiative.id)  # Если форма недействительна
 
 def is_moderator(user):
     return user.groups.filter(name='Moderators').exists()
@@ -62,7 +77,9 @@ def vote_initiative(request, id):
     if Vote.objects.filter(user=request.user, initiative=initiative).exists():
         return render(request, 'initiatives/details_view.html', {
             'initiative': initiative,
-            'error': 'Вы уже проголосовали за эту инициативу.'
+            'error': 'Вы уже проголосовали за эту инициативу.',
+            'comments': initiative.comments.all(),  # Передаем комментарии
+            'comment_form': CommentForm(),  # Передаем форму для комментариев
         })
 
     # Если нет, создаем новый голос
