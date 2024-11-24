@@ -1,52 +1,132 @@
-
 {% extends 'main/layout.html' %}
-
+{% load static %}
 {% block title %}{{ initiative.title }}{% endblock %}
 
 {% block content %}
 <div class="initiative-detail">
     <h2>{{ initiative.title }}</h2>
-    <p><strong>Инициатор:</strong> {{ initiative.initiator_name }}</p>
-    <p><strong>Электронная почта:</strong> {{ initiative.email }}</p>
+    <a href="{% url 'user_profile' initiative.user.id %}">
+        {{ initiative.user.first_name }} {{ initiative.user.last_name }}
+    </a>
     <p><strong>Описание:</strong></p>
     <p>{{ initiative.description }}</p>
-    {% if initiative.image %}
-        <img src="{{ initiative.image.url }}" alt="{{ initiative.title }}" style="width:100%; height:auto;">
+    <p><strong>Изображения:</strong></p>
+    {% if initiative.images.all %}
+        <div class="images-gallery">
+            {% for image in initiative.images.all %}
+                <div class="image-container">
+                    <img src="{{ image.image.url }}" alt="{{ initiative.title }}" class="image-small" onclick="openImage(this)">
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>Изображение отсутствует</p>
+        <p>Изображений нет.</p>
     {% endif %}
+
+    <script>
+        // Функция для открытия изображения в модальном окне
+        function openImage(image) {
+            var modal = document.getElementById('modal');
+            var modalImage = document.getElementById('modalImage');
+            modal.style.display = "flex";
+            modalImage.src = image.src;
+        }
+    
+        // Функция для закрытия модального окна
+        function closeImage() {
+            var modal = document.getElementById('modal');
+            modal.style.display = "none";
+        }
+    </script>
+    
+    <div id="modal" class="modal" onclick="closeImage()">
+        <img id="modalImage" class="modal-content" />
+    </div>
     <p><strong>Голосов:</strong> {{ initiative.votes }}</p>
-    <p>
-        <a href="{% url 'home' %}" class="btn">Назад к списку инициатив</a>
-        {% if is_moderator %}
-            <a href="{% url 'review_initiatives' %}" class="btn">К проверке инициатив</a>
-        {% endif %}
-    </p>
+    
+
     {% if user.is_authenticated %}
-        <form action="{% url 'vote_initiative' initiative.id %}" method="POST">
-            {% csrf_token %}
-            <button type="submit" class="btn">Проголосовать</button>
-        </form>
+        <p>
+            {% if is_moderator %}
+                {% if initiative.status == 'pending' or initiative.status == 'rejected' or initiative.status == 'inactive' %}
+                    <a href="{% url 'review_initiatives' %}" class="btn">К списку инициатив</a>
+                {% elif initiative.status == 'approved' %}
+                    <a href="{% url 'home' %}" class="btn">К списку инициатив</a>
+                {% elif initiative.status == 'winner' %}
+                    <a href="{% url 'winners' %}" class="btn">К списку инициатив</a>
+                {% endif %}
+                {% if initiative.status == 'winner' %}
+                    <a href="{% url 'winners' %}" class="btn">К списку инициатив</a>
+                    <form action="{% url 'add_update' initiative.id %}" method="post" enctype="multipart/form-data">Добавить обновление
+                        {% csrf_token %}
+                        <label>Описание:</label>
+                        <textarea name="description"></textarea>
+                        <label>Изображения:</label>
+                        <input type="file" name="images" multiple>
+                        <button type="submit">Добавить обновление</button>
+                    </form>
+                {% endif %}
+                
+            {% elif not is_moderator %}
+                {% if initiative.status == 'pending' or initiative.status == 'rejected' or initiative.status == 'inactive' %}
+                    <a href="{% url 'user_initiatives' user.id %}" class="btn">К моим инициатив</a>
+                {% elif initiative.status == 'approved' %}
+                    <a href="{% url 'home' %}" class="btn">К списку инициатив</a>
+                    <a href="{% url 'user_initiatives' user.id %}" class="btn">К моим инициатив</a>
+                {% elif initiative.status == 'winner' %}
+                    <a href="{% url 'winners' %}" class="btn">К списку инициатив</a>
+                {% endif %}
+            {% endif %}
+        </p>
+        {% for update in initiative.updates.all %}
+            <div>
+                <p><strong>{{ update.timestamp|date:"Y-m-d H:i" }}</strong></p>
+                <p>{{ update.description }}</p>
+                <div class="images-gallery">
+                    {% for image in update.images.all %}
+                        <img src="{{ image.image.url }}" alt="Обновление изображения" style="width: 100px; height: auto;">
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+        {% if initiative.status == 'approved' %}  <!-- Проверка статуса инициативы --> 
+            <form action="{% url 'vote_initiative' initiative.id %}" method="POST">
+                {% csrf_token %}
+                {% if user in initiative.voted_users.all %}
+                    <button type="submit" class="btn">Отменить голос</button>
+                {% else %}
+                    <button type="submit" class="btn">Проголосовать</button>
+                {% endif %}
+            </form>
+        {% endif %}
+        {% if initiative.status == 'approved' or initiative.status == 'winner' %} 
+            <h3>Оставить комментарий:</h3>
+            <form action="{% url 'add_comment' initiative.id %}" method="POST">
+                {% csrf_token %}
+                {{ comment_form.as_p }}  <!-- Поле для комментария -->
+                <button type="submit" class="btn">Добавить комментарий</button>
+            </form>
+        {% endif %}
+
         
-        <h3>Оставить комментарий:</h3>
-        <form action="{% url 'add_comment' initiative.id %}" method="POST">
-            {% csrf_token %}
-            {{ comment_form.as_p }}  <!-- Поле для комментария -->
-            <button type="submit" class="btn">Добавить комментарий</button>
-        </form>
         
         <h3>Комментарии:</h3>
         {% for comment in comments %}
             <div class="comment">
-                <strong>{{ comment.user.username }}</strong> - {{ comment.created_at }}:
+                <a href="{% url 'user_profile' comment.user.id %}">
+                    <img src="{{ comment.user.profile.avatar.url }}" alt="Avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                    {{ comment.user.first_name }} {{ comment.user.last_name }}
+                </a>
                 <p>{{ comment.content }}</p>
             </div>
         {% empty %}
-            <p>Пока нет комментариев.</p>
+            <p>Нет комментариев.</p>
         {% endfor %}
         
     {% else %}
+        <p><a href="{% url 'home' %}" class="btn">К списку инициатив</a></p>    
         <p>Чтобы проголосовать или оставить комментарий, пожалуйста, <a href="{% url 'login' %}">войдите</a>.</p>
     {% endif %}
-<div\>
+</div>
 {% endblock %}

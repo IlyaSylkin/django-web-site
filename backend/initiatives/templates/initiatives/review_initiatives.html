@@ -19,16 +19,20 @@
                 <tr>
                     <td>{{ initiative.title }}</td>
                     <td>{{ initiative.description|truncatewords:20 }}</td>
-                    <td>{{ initiative.created_at }}</td>
+                    <td>{{ initiative.submission_date }}</td>
                     <td>
                         <a href="{% url 'initiative-detail' initiative.id %}" class="btn">Подробнее</a>
-                        <form action="{% url 'approve_initiative' initiative.id %}" method="post">
+                        
+                        <!-- Общая форма для одобрения и отклонения с комментарием -->
+                        <form action="{% url 'review_initiative' initiative.id %}" method="post" style="display:inline;">
                             {% csrf_token %}
-                            <button type="submit">Одобрить</button>
-                        </form>
-                        <form action="{% url 'reject_initiative' initiative.id %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit">Отклонить</button>
+                            
+                            <!-- Поле для комментария -->
+                            <textarea name="comment" placeholder="Комментарий" rows="2" ></textarea>
+                            
+                            <!-- Кнопки для одобрения и отклонения -->
+                            <button type="submit" name="action" value="approve">Одобрить</button>
+                            <button type="submit" name="action" value="reject">Отклонить</button>
                         </form>
                     </td>
                 </tr>

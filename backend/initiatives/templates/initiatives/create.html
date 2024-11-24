@@ -8,8 +8,11 @@
 <form method="post" enctype="multipart/form-data" class="initiative-form">
     {% csrf_token %}
     {{ form.as_p }}
-  
+
+    <!-- Поле для загрузки нескольких изображений -->
+    <label for="id_images">Добавьте изображения</label>
+    <input type="file" name="images" id="id_images" multiple>
+
     <button type="submit" class="btn">Добавить инициативу</button>
 </form>
-
-{% endblock %}
+    {% endblock %}

@@ -11,17 +11,24 @@
 </div>
 
 <h2>Недавние инициативы</h2>
-<!-- TODO: показывать время, автора, переход на страницу проекта, будет автор, комментарии, фильтр по тегам, кнопка показать больше -->
+
 {% for el in initiatives %}
 <div class="initiative">
     <h3>{{ el.title }}</h3>
     <p>{{ el.description|truncatewords:30 }}</p>
-    {% if el.image %}
-        <img src="{{ el.image.url }}" alt="{{ el.title }}" style="width:100%;height:auto;">
+    {% if el.images.all %}
+        <div class="images-gallery">
+            {% for image in el.images.all|slice:":3" %}
+                <div class="image-container">
+                    <img src="{{ image.image.url }}" alt="{{ el.title }}"style="width: 150px; height: auto;">
+                </div>
+            {% endfor %}
+        </div>
     {% else %}
         <p>Изображение отсутствует</p>
     {% endif %}
     <p>Голосов: {{ el.votes }}</p>
+    <p>Создано: {{ el.submission_date|date:"Y-m-d H:i" }}</p>
     <a href="{% url 'initiative-detail' el.id %}" class="btn">Подробнее</a>
     </div>
 {% endfor %}

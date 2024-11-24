@@ -1,4 +1,5 @@
 {% extends 'main/layout.html' %}
+{% load static %}
 
 {% block title %}Профиль пользователя{% endblock %}
 
@@ -7,13 +8,21 @@
     <h2>Профиль пользователя</h2>
 
     <div class="profile-details">
-        <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
-        <p><strong>Имя:</strong> {{ user.first_name }}</p>
-        <p><strong>Фамилия:</strong> {{ user.last_name }}</p>
-        <p><strong>Email:</strong> {{ user.email }}</p>
+        <img src="{{ avatar }}" alt="Avatar" style="width: 100px; height: auto;"/>
+        <p><strong>Имя:</strong> {{ user_profile.user.first_name|default_if_none:"не указано" }}</p>
+        <p><strong>Фамилия:</strong> {{ user_profile.user.last_name|default_if_none:"не указано" }}</p>
+        <p><strong>Email:</strong> {{ user_profile.user.email|default_if_none:"не указано" }}</p>
+        <p><strong>Телефон:</strong> {{ user_profile.phone|default_if_none:"не указано" }}</p>
+        <p><strong>Курс:</strong> {{ user_profile.course|default_if_none:"не указано" }}</p>
+        <p><strong>Номер института:</strong> {{ user_profile.institute_number|default_if_none:"не указано" }}</p>
+        <p><strong>Группа:</strong> {{ user_profile.group|default_if_none:"не указано" }}</p>
+        <p><strong>О себе:</strong> {{ user_profile.about|default_if_none:"не указано" }}</p>
+        <p><strong>Роль:</strong> {{ user_profile.get_role_display }}</p>
     </div>
 
-    <a href="{% url 'profile_edit' %}" class="btn">Редактировать профиль</a>
+    {% if user == user_profile.user %}
+        <a href="{% url 'profile_edit' %}" class="btn">Редактировать профиль</a>
+    {% endif %}
     <a href="{% url 'home' %}" class="btn">Назад к главной</a>
 </div>
 {% endblock %}

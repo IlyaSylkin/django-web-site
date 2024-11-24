@@ -1,0 +1,28 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Мои инициативы{% endblock %}
+
+{% block content %}
+<h2>Инициативы пользователя {{ user.get_full_name }}</h2>
+
+{% if initiatives %}
+    <ul>
+        {% for initiative in initiatives %}
+            <div class="initiative">
+                <h3><a href="{% url 'initiative-detail' initiative.id %}">{{ initiative.title }}</a></h3>
+
+                <p><strong>Статус:</strong> {{ initiative.get_status_display }}</p>
+                <p><strong>Время создания:</strong> {{ initiative.submission_date }}</p>
+                {% if initiative.status != 'pending' %}
+                    <p><strong>Комментарий модератора:</strong> {{ initiative.moderator_comment }}</p>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>Нет инициатив.</p>
+        {% endfor %}
+
+    </ul>
+{% else %}
+    <p>У вас пока нет инициатив.</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Выбор победителя месяца{% endblock %}
+
+{% block content %}
+<h2>Выбор победителя месяца</h2>
+<form method="post">
+    {% csrf_token %}
+    <label for="month">Текущий месяц:</label>
+    <select name="month" id="month">
+        {% for month in months %}
+            <option value="{{ month }}">{{ month }}</option>
+        {% endfor %}
+    </select>
+
+    <h3>Инициативы с максимальным количеством голосов:</h3>
+    <ul>
+        {% for initiative in initiatives %}
+            <li>
+                <input type="radio" name="winner_initiative" value="{{ initiative.id }}">
+                <a href="{% url 'initiative-detail' initiative.id %}">{{ initiative.title }}</a> - 
+                {{ initiative.votes_count }} голосов
+            </li>
+        {% empty %}
+            <li>Нет одобренных инициатив.</li>
+        {% endfor %}
+    </ul>
+
+    <button type="submit">Выбрать победителя</button>
+</form>
+
+{% endblock %}

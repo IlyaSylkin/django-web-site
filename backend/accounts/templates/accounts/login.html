@@ -3,7 +3,11 @@
 <h2>Вход</h2>
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    <label for="username">Имя пользователя:</label>
+    {{ form.username }}
+
+    <label for="password">Пароль:</label>
+    {{ form.password }}
     <button type="submit">Войти</button>
 </form>
 {% endblock %}
