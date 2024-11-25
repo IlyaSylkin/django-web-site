@@ -10,8 +10,11 @@
     <a href="{% url 'initiatives_create' %}" class="btn">Предложить инициативу</a>
 </div>
 
-<h2>Недавние инициативы</h2>
-
+{% if request.path == '/winners/' %}
+    <h2>Победители прошлых месяцев</h2>
+{% else %}
+    <h2>Недавние инициативы</h2>
+{% endif %}
 {% for el in initiatives %}
 <div class="initiative">
     <h3>{{ el.title }}</h3>

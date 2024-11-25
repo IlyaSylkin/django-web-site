@@ -1,45 +1,48 @@
 {% extends "main/layout.html" %}
+{% load static %}
 
 {% block title %}Проверка Инициатив{% endblock %}
 
 {% block content %}
-<h2>Проверка инициатив</h2>
-{% if initiatives %}
-    <table>
-        <thead>
-            <tr>
-                <th>Название</th>
-                <th>Описание</th>
-                <th>Дата создания</th>
-                <th>Действия</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for initiative in initiatives %}
+<div class="moderator-page">
+    <h2>Проверка инициатив</h2>
+    {% if initiatives %}
+        <table class="initiative-table">
+            <thead>
                 <tr>
-                    <td>{{ initiative.title }}</td>
-                    <td>{{ initiative.description|truncatewords:20 }}</td>
-                    <td>{{ initiative.submission_date }}</td>
-                    <td>
-                        <a href="{% url 'initiative-detail' initiative.id %}" class="btn">Подробнее</a>
-                        
-                        <!-- Общая форма для одобрения и отклонения с комментарием -->
-                        <form action="{% url 'review_initiative' initiative.id %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            
-                            <!-- Поле для комментария -->
-                            <textarea name="comment" placeholder="Комментарий" rows="2" ></textarea>
-                            
-                            <!-- Кнопки для одобрения и отклонения -->
-                            <button type="submit" name="action" value="approve">Одобрить</button>
-                            <button type="submit" name="action" value="reject">Отклонить</button>
-                        </form>
-                    </td>
+                    <th class="fixed-width">Название</th>
+                    <th class="fixed-width">Описание</th>
+                    <th>Дата создания</th>
+                    <th>Действия</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% else %}
-    <p>Нет инициатив для проверки.</p>
-{% endif %}
+            </thead>
+            <tbody>
+                {% for initiative in initiatives %}
+                    <tr>
+                        <td class="fixed-width">{{ initiative.title }}</td>
+                        <td class="fixed-width">{{ initiative.description|truncatewords:20 }}</td>
+                        <td>{{ initiative.submission_date }}</td>
+                        <td>
+                            <a href="{% url 'initiative-detail' initiative.id %}" class="btn">Подробнее</a>
+                            
+                            <form action="{% url 'review_initiative' initiative.id %}" method="post" class="action-form">
+                                {% csrf_token %}
+                                
+                                <textarea name="comment" placeholder="Комментарий" rows="2" class="comment-box"></textarea>
+                                
+                                <div class="action-buttons">
+                                    <button type="submit" name="action" value="approve">Одобрить</button>
+                                    <button type="submit" name="action" value="reject">Отклонить</button>
+                                </div>
+                                
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Нет инициатив для проверки.</p>
+    {% endif %}
+</div>
 {% endblock %}

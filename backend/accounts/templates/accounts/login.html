@@ -1,13 +1,19 @@
 {% extends 'main/layout.html' %}
-{% block content %}
-<h2>Вход</h2>
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Имя пользователя:</label>
-    {{ form.username }}
 
-    <label for="password">Пароль:</label>
-    {{ form.password }}
-    <button type="submit">Войти</button>
-</form>
+{% block content %}
+<div class="registration-container">
+    <h2>Вход</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_username">Имя пользователя:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            <label for="id_password">Пароль:</label>
+            {{ form.password }}
+        </div>
+        <button type="submit">Войти</button>
+    </form>
+</div>
 {% endblock %}

@@ -38,9 +38,10 @@
             {{ form.avatar }}
         </div>
 
-        <button type="submit" class="btn">Сохранить изменения</button>
+        <div class="button-container">
+            <button type="submit" class="btn save-btn">Сохранить изменения</button>
+            <a href="{% url 'profile' %}" class="btn back-btn">Назад к профилю</a>
+        </div>
     </form>
-
-    <a href="{% url 'profile' %}" class="btn">Назад к профилю</a>
 </div>
 {% endblock %}

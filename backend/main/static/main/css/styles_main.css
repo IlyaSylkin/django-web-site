@@ -87,7 +87,9 @@ nav {
 }
 
 h2 {
-    font-size: 1.5em;
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
 .initiative {
@@ -109,6 +111,7 @@ h2 {
     color: #555; /* Серый цвет текста */
     line-height: 1.6; /* Межстрочный интервал для читаемости */
 }
+
 
 /* Стили для всех кнопок */
 .btn {
@@ -271,4 +274,523 @@ footer {
 
 .contact-card a:hover {
     color: #45a049;
+}
+.comment {
+    display: flex; /* Размещаем элементы в строку */
+    align-items: flex-start; /* Выравнивание по верхнему краю */
+    margin-bottom: 15px; /* Отступ между комментариями */
+    background-color: #f9f9f9; /* Светлый фон для комментария */
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* Стили для аватарки */
+.comment .avatar {
+    width: 50px; /* Размер аватарки */
+    height: 50px; /* Пропорциональная высота */
+    border-radius: 50%; /* Круглая форма */
+    margin-right: 15px; /* Отступ справа от аватарки */
+    order: 0; /* Устанавливаем порядок первым */
+}
+
+/* Стили для имени пользователя */
+.comment .comment-content {
+    flex: 1; /* Занимаем всё доступное пространство */
+    order: 1; /* Устанавливаем текст вторым */
+}
+
+.comment .comment-content .username {
+    font-weight: bold; /* Жирный текст */
+    color: #333; /* Темный цвет текста */
+    display: block; /* Отображение в отдельной строке */
+    margin-bottom: 5px; /* Отступ между именем и текстом */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    transition: color 0.3s; /* Плавный переход цвета */
+}
+
+.comment .comment-content .username:hover {
+    color: #007bff; /* Синий цвет при наведении */
+}
+
+/* Стили для текста комментария */
+.comment .comment-content .text {
+    font-size: 14px;
+    line-height: 1.5; /* Межстрочный интервал для читаемости */
+    color: #555; /* Серый цвет текста */
+}
+ul {
+    list-style-type: none; /* Убираем стандартные маркеры */
+    padding: 0;
+}
+/* Стили для ссылок на инициативы */
+.initiative_detail_link {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #4CAF50; /* Зеленый цвет, чтобы соответствовать стилю сайта */
+    font-weight: bold; /* Выделяем текст */
+    transition: color 0.2s ease; /* Плавный переход для эффекта при наведении */
+}
+
+/* Эффект при наведении на ссылку */
+.initiative_detail_link:hover {
+    color: #388E3C; /* Более темный оттенок зеленого при наведении */
+    text-decoration: underline; /* Добавляем подчеркивание */
+}
+
+/* Стили для страницы регистрации */
+.registration-container {
+    max-width: 500px; /* Ограничиваем ширину формы */
+    margin: 0 auto; /* Центрируем форму */
+    padding: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объема */
+}
+
+/* Заголовок формы */
+.registration-container h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+/* Поля ввода */
+.registration-container input[type="text"],
+.registration-container input[type="email"],
+.registration-container input[type="password"] {
+    width: 100%; /* Поля занимают всю ширину контейнера */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f9f9f9; /* Легкий фон */
+    transition: border-color 0.3s ease;
+}
+
+/* Поля ввода при фокусе */
+.registration-container input[type="text"]:focus,
+.registration-container input[type="email"]:focus,
+.registration-container input[type="password"]:focus {
+    border-color: #4CAF50; /* Зеленая граница при фокусе */
+    outline: none;
+    background-color: #fff;
+}
+
+/* Кнопка отправки */
+.registration-container button {
+    display: block;
+    width: 100%; /* Кнопка занимает всю ширину формы */
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Кнопка при наведении */
+.registration-container button:hover {
+    background-color: #45a049;
+}
+
+/* Сообщение об ошибках */
+.registration-container .errorlist {
+    color: red;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+/* Стили для вывода CSRF токена */
+.registration-container form {
+    margin-bottom: 0; /* Убираем отступы снизу */
+}
+
+/* Стили для страницы профиля */
+.profile-container {
+    max-width: 600px; /* Ограничиваем ширину профиля */
+    margin: 0 auto; /* Центрируем блок профиля */
+    padding: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для объема */
+    text-align: center; /* Центрирование содержимого */
+}
+
+/* Заголовок профиля */
+.profile-container h2 {
+    font-size: 2em;
+    color: #4CAF50; /* Зеленый цвет заголовка */
+    margin-bottom: 20px;
+}
+
+/* Стиль для деталей профиля */
+.profile-details {
+    margin: 20px 0;
+    text-align: left; /* Выравнивание текста по левому краю */
+}
+
+.profile-details img {
+    display: block;
+    margin: 0 auto 15px; /* Центрируем аватар */
+    border-radius: 50%; /* Делаем аватар круглым */
+    border: 4px solid #4CAF50; /* Зеленая рамка */
+    width: 230px; /* Увеличиваем ширину */
+    height: 230px; /* Увеличиваем высоту, чтобы сохранить пропорции */
+    object-fit: cover; /* Обеспечиваем, чтобы аватарка была пропорциональной */
+}
+
+.profile-details p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #333; /* Темный цвет текста */
+}
+
+.profile-details p strong {
+    color: #4CAF50; /* Зеленый цвет для ключевых слов */
+}
+
+/* Кнопки */
+/* Кнопки */
+.profile-container .btn {
+    display: block;
+    width: 100%; /* Кнопка на всю ширину */
+    padding: 12px;
+    background-color: #4CAF50; /* Зеленый цвет фона */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+
+
+.profile-container .btn:hover {
+    background-color: #45a049; /* Цвет кнопки при наведении */
+}
+
+/* Основной контейнер редактирования профиля */
+.profile-edit-container {
+    max-width: 600px;
+    margin: 0 auto; /* Центрирование */
+    padding: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* Заголовок страницы */
+.profile-edit-container h2 {
+    text-align: center;
+    font-size: 2em;
+    color: #4CAF50; /* Зеленый цвет текста */
+    margin-bottom: 20px;
+}
+
+/* Группы формы */
+.profile-edit-container .form-group {
+    margin-bottom: 15px; /* Расстояние между полями */
+}
+
+/* Метки (label) */
+.profile-edit-container .form-group label {
+    display: block;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #4CAF50; /* Зеленый цвет текста */
+}
+
+/* Поля ввода */
+.profile-edit-container .form-group input[type="text"],
+.profile-edit-container .form-group input[type="email"],
+.profile-edit-container .form-group input[type="file"],
+.profile-edit-container .form-group textarea,
+.profile-edit-container .form-group select {
+    width: 100%; /* Поля занимают всю ширину */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f9f9f9; /* Легкий серый фон */
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Поля ввода при фокусе */
+.profile-edit-container .form-group input[type="text"]:focus,
+.profile-edit-container .form-group input[type="email"]:focus,
+.profile-edit-container .form-group input[type="file"]:focus,
+.profile-edit-container .form-group textarea:focus,
+.profile-edit-container .form-group select:focus {
+    border-color: #4CAF50; /* Зеленая граница */
+    outline: none;
+    background-color: #fff; /* Белый фон */
+}
+
+/* Текстовая область (textarea) */
+.profile-edit-container .form-group textarea {
+    resize: vertical; /* Разрешаем изменение размера только по вертикали */
+    min-height: 100px; /* Минимальная высота */
+}
+
+/* Кнопки */
+.profile-edit-container .btn {
+    display: block;
+    width: 100%; /* Кнопка на всю ширину */
+    padding: 12px;
+    background-color: #4CAF50; /* Зеленый цвет фона */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+/* Общий контейнер страницы */
+.moderator-page {
+    max-width: 900px;
+    margin: 0 auto; /* Центрирование */
+    padding: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    font-family: Arial, sans-serif;
+}
+
+/* Заголовок страницы */
+.moderator-page h2 {
+    text-align: center;
+    color: #4CAF50; /* Зеленый цвет текста */
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Таблица */
+.moderator-page table {
+    width: 100%; /* Таблица занимает всю ширину */
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1em;
+}
+
+/* Фиксированная ширина для столбцов */
+.initiative-table .fixed-width {
+    max-width: 150px; /* Ограничение ширины */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Заголовки таблицы */
+.moderator-page table th {
+    background-color: #4CAF50; /* Зеленый фон */
+    color: white;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+/* Строки таблицы */
+.moderator-page table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top; /* Выравнивание текста сверху */
+}
+
+/* Чередование цвета строк */
+.moderator-page table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Светлый серый для четных строк */
+}
+
+/* Строка при наведении */
+.moderator-page table tr:hover {
+    background-color: #f1f1f1; /* Немного темнее при наведении */
+}
+
+/* Текстовые области для комментариев */
+.moderator-page textarea {
+    width: 100%; /* Текстовое поле занимает всю ширину */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9em;
+    margin-top: 10px;
+    resize: none; /* Убираем изменение размера */
+}
+
+/* Общий контейнер для кнопок */
+.moderator-page .action-buttons {
+    display: flex; /* Включаем флекс для кнопок */
+    width: 100%; /* Кнопки занимают всю строку */
+    gap: 0; /* Убираем зазор между кнопками */
+}
+
+/* Кнопки занимают по 50% */
+.moderator-page .action-buttons button {
+    flex: 1; /* Кнопки растягиваются на равные части */
+    padding: 10px 0; /* Вертикальные отступы для кнопок */
+    text-align: center; /* Центровка текста */
+    border: none; /* Убираем рамки */
+    font-size: 1em; /* Размер текста */
+    cursor: pointer; /* Указатель при наведении */
+    transition: background-color 0.3s ease; /* Плавный эффект изменения цвета */
+    color: white; /* Цвет текста */
+}
+
+/* Кнопка "Одобрить" */
+.moderator-page .action-buttons button[name="action"][value="approve"] {
+    background-color: #4CAF50; /* Зеленый цвет */
+    border-right: 1px solid white; /* Разделительная линия между кнопками */
+}
+
+.moderator-page .action-buttons button[name="action"][value="approve"]:hover {
+    background-color: #45a049; /* Более темный зеленый */
+}
+
+/* Кнопка "Отклонить" */
+.moderator-page .action-buttons button[name="action"][value="reject"] {
+    background-color: #f44336; /* Красный цвет */
+}
+
+.moderator-page .action-buttons button[name="action"][value="reject"]:hover {
+    background-color: #d32f2f; /* Более темный красный */
+}
+
+/* Текстовые области для комментариев */
+.comment-box {
+    width: calc(100% - 20px); /* Поле занимает почти всю ширину ячейки */
+    padding: 10px;
+    border: 1px solid #ccc; /* Серый бордер */
+    border-radius: 5px; /* Закругленные углы */
+    font-size: 0.9em; /* Размер текста */
+    margin-top: 10px;
+    resize: none; /* Убираем возможность изменения размера */
+    box-sizing: border-box; /* Гарантируем, что padding не увеличивает ширину */
+    background-color: #fdfdfd; /* Светлый фон */
+    color: #333; /* Темный текст */
+}
+
+/* Текстовое поле при фокусе */
+.comment-box:focus {
+    border-color: #4CAF50; /* Зеленый бордер при фокусе */
+    outline: none; /* Убираем стандартное выделение */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.4); /* Легкая подсветка */
+}
+
+
+/* Общий контейнер страницы */
+.winner-page {
+    max-width: 800px;
+    margin: 0 auto; /* Центрирование страницы */
+    padding: 20px;
+    background-color: #fff; /* Белый фон */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    font-family: Arial, sans-serif;
+}
+
+/* Заголовок страницы */
+.winner-page h2 {
+    text-align: center;
+    color: #4CAF50; /* Зеленый цвет заголовка */
+    margin-bottom: 20px;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* Заголовки разделов */
+.winner-page h3 {
+    color: #333; /* Темно-серый текст */
+    margin-bottom: 10px;
+    font-size: 1.5em;
+    border-bottom: 2px solid #4CAF50; /* Линия под заголовком */
+    padding-bottom: 5px;
+}
+
+/* Стили для формы */
+.winner-page form {
+    margin-top: 20px;
+}
+
+/* Метки (labels) */
+.winner-page label {
+    font-size: 1.1em;
+    color: #333; /* Темно-серый текст */
+    margin-bottom: 5px;
+    display: block; /* Чтобы каждая метка занимала свою строку */
+}
+
+/* Выпадающий список (select) */
+.winner-page select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f9f9f9; /* Светлый фон */
+}
+
+/* Список инициатив */
+.winner-page ul {
+    list-style-type: none; /* Убираем стандартные маркеры */
+    padding: 0;
+    margin: 0;
+}
+
+.winner-page ul li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Светлый фон для списка */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Радио-кнопка */
+.winner-page ul li input[type="radio"] {
+    margin-right: 10px;
+}
+
+/* Ссылки на инициативы */
+.winner-page ul li a {
+    color: #4CAF50; /* Зеленый текст ссылки */
+    text-decoration: none; /* Убираем подчеркивание */
+    font-weight: bold;
+}
+
+.winner-page ul li a:hover {
+    text-decoration: underline; /* Подчеркивание при наведении */
+}
+
+/* Кнопка отправки формы */
+.winner-page button {
+    width: 100%; /* Кнопка на всю ширину */
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50; /* Зеленый фон */
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.winner-page button:hover {
+    background-color: #45a049; /* Более темный зеленый */
 }

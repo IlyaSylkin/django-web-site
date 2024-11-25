@@ -9,7 +9,7 @@
     <ul>
         {% for initiative in initiatives %}
             <div class="initiative">
-                <h3><a href="{% url 'initiative-detail' initiative.id %}">{{ initiative.title }}</a></h3>
+                <h3><a href="{% url 'initiative-detail' initiative.id %}" class="initiative_detail_link">{{ initiative.title }}</a></h3>
 
                 <p><strong>Статус:</strong> {{ initiative.get_status_display }}</p>
                 <p><strong>Время создания:</strong> {{ initiative.submission_date }}</p>
